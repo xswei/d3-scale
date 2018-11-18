@@ -8,8 +8,6 @@
 
 这个模块不会提供颜色方案，可以参考 [d3-scale-chromatic](https://github.com/xswei/d3-scale-chromatic) 来获取需要的颜色方案。
 
-This repository does not provide color schemes; see [d3-scale-chromatic](https://github.com/xswei/d3-scale-chromatic) for color schemes designed to work with d3-scale.
-
 比例尺没有具体的视觉表现。但是大多数的比例尺可以在显示比例尺的参考轴时候 [generate(生成)](#continuous_ticks) 并 [format(格式化)](#continuous_tickFormat) 刻度。
 
 更多比例尺的介绍可以参考以下推荐的教程:
@@ -53,11 +51,11 @@ var x = d3.scaleLinear();
 
 ### Continuous Scales
 
-Continuous scales map a continuous, quantitative input [domain](#continuous_domain) to a continuous output [range](#continuous_range). If the range is also numeric, the mapping may be [inverted](#continuous_invert). A continuous scale is not constructed directly; instead, try a [linear](#linear-scales), [power](#power-scales), [log](#log-scales), [identity](#identity-scales), [time](#time-scales) or [sequential color](#sequential-scales) scale.
+连续比例尺可以将连续的、定量的输入 [domain](#continuous_domain) 映射到连续的输入 [range](#continuous_range)。如果输出范围也是数值则这种映射关系可以被 [inverted(反转)](#continuous_invert)。连续比例尺是一类比例尺，不能直接使用，可以使用 [linear](#linear-scales), [power](#power-scales), [log](#log-scales), [identity](#identity-scales), [time](#time-scales) 或 [sequential color](#sequential-scales).
 
 <a name="_continuous" href="#_continuous">#</a> <i>continuous</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-Given a *value* from the [domain](#continuous_domain), returns the corresponding value from the [range](#continuous_range). If the given *value* is outside the domain, and [clamping](#continuous_clamp) is not enabled, the mapping may be extrapolated such that the returned value is outside the range. For example, to apply a position encoding:
+根据给定的位于 [domain](#continuous_domain) 中的 *value* 返回对应的位于 [range](#continuous_range) 中的值。如果给定的 *value* 不在 `domain` 中，并且 [clamping](#continuous_clamp) 没有启用，则返回的对应的值也会位于 `range` 之外，这种映射值推算出来的。例如：
 
 ```js
 var x = d3.scaleLinear()
@@ -68,7 +66,7 @@ x(20); // 80
 x(50); // 320
 ```
 
-Or to apply a color encoding:
+或者将数值映射为颜色：
 
 ```js
 var color = d3.scaleLinear()
@@ -81,7 +79,7 @@ color(50); // "#7b5167"
 
 <a name="continuous_invert" href="#continuous_invert">#</a> <i>continuous</i>.<b>invert</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-Given a *value* from the [range](#continuous_range), returns the corresponding value from the [domain](#continuous_domain). Inversion is useful for interaction, say to determine the data value corresponding to the position of the mouse. For example, to invert a position encoding:
+根据给定的位于 [range](#continuous_range) 中的 *value* 返回对应的位于 [domain](#continuous_domain) 的值。反向映射在交互中通常很有用，根据鼠标的位置计算对应的数据范围。例如:
 
 ```js
 var x = d3.scaleLinear()
@@ -92,15 +90,15 @@ x.invert(80); // 20
 x.invert(320); // 50
 ```
 
-If the given *value* is outside the range, and [clamping](#continuous_clamp) is not enabled, the mapping may be extrapolated such that the returned value is outside the domain. This method is only supported if the range is numeric. If the range is not numeric, returns NaN.
+如果给定的 *value* 位于 `range` 外面，并且没有启用 [clamping](#continuous_clamp) 则会推算出对应的位于 `domain` 之外的值。这个方法仅仅在 `range` 为数值时有用。如果 `range` 不是数值类型则返回 `NaN`.
 
-For a valid value *y* in the range, <i>continuous</i>(<i>continuous</i>.invert(<i>y</i>)) approximately equals *y*; similarly, for a valid value *x* in the domain, <i>continuous</i>.invert(<i>continuous</i>(<i>x</i>)) approximately equals *x*. The scale and its inverse may not be exact due to the limitations of floating point precision.
+对于有效的处于 `range` 中的 *y* 值，<i>continuous</i>(<i>continuous</i>.invert(<i>y</i>)) 近似等于 *y*；同理对于有效的 *x* 值，<i>continuous</i>.invert(<i>continuous</i>(<i>x</i>)) 近似等于 *x*。因为浮点数精度问题，比例尺和它的反推可能不精确。
 
 <a name="continuous_domain" href="#continuous_domain">#</a> <i>continuous</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-If *domain* is specified, sets the scale’s domain to the specified array of numbers. The array must contain two or more elements. If the elements in the given array are not numbers, they will be coerced to numbers. If *domain* is not specified, returns a copy of the scale’s current domain.
+如果指定了 *domain* 则将比例尺的 `domain` 设置为指定的数值数组。数组比例包含两个或者两个以上元素。如果给定的数组中的元素不是数值类型，则会被强制转为数值类型。如果没有指定 *domain* 则会返回当前比例尺的 `domain` 的拷贝。
 
-Although continuous scales typically have two values each in their domain and range, specifying more than two values produces a piecewise scale. For example, to create a [diverging color scale](#diverging-scales) that interpolates between white and red for negative values, and white and green for positive values, say:
+尽管对于连续比例尺来说，`doamin` 通常包含两个值就可以，但是指定多个值的话会生成一个分段的比例尺。比如创建一个 [diverging color scale(分段的颜色比例尺)](#diverging-scales)，当值为负时在白色和红色之间插值，当值为正时在白色和绿色之间插值：
 
 ```js
 var color = d3.scaleLinear()
@@ -111,15 +109,15 @@ color(-0.5); // "rgb(255, 128, 128)"
 color(+0.5); // "rgb(128, 192, 128)"
 ```
 
-Internally, a piecewise scale performs a [binary search](https://github.com/xswei/d3-array#bisect) for the range interpolator corresponding to the given domain value. Thus, the domain must be in ascending or descending order. If the domain and range have different lengths *N* and *M*, only the first *min(N,M)* elements in each are observed.
+在内部，分段比例尺根据给定的 `domain` 的值 `range` 插值器进行 [binary search](https://github.com/xswei/d3-array#bisect)。因此 `domain` 必须是有序的。如果 `domain` 和 `range` 的长度不一样分别为 *N* 和 *M* 则只有 *min(N,M)* 个元素会被使用。
 
 <a name="continuous_range" href="#continuous_range">#</a> <i>continuous</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-If *range* is specified, sets the scale’s range to the specified array of values. The array must contain two or more elements. Unlike the [domain](#continuous_domain), elements in the given array need not be numbers; any value that is supported by the underlying [interpolator](#continuous_interpolate) will work, though note that numeric ranges are required for [invert](#continuous_invert). If *range* is not specified, returns a copy of the scale’s current range. See [*continuous*.interpolate](#continuous_interpolate) for more examples.
+如果指定了 *range* 则将比例尺的 `range` 设置为指定的数组。数组必须包含两个或两个以上元素。与 [domain](#continuous_domain) 不同的是，`range` 中的元素不一定非要为数值类型。任何支持 [interpolator](#continuous_interpolate) 的类型都可以被设置。但是要注意的是如果要使用 [invert](#continuous_invert) 则 `range` 必须指定为数值类型. 如果 *range* 没有指定则返回比例尺当前 `range` 的拷贝。参考 [*continuous*.interpolate](#continuous_interpolate) 获取更多例子。
 
 <a name="continuous_rangeRound" href="#continuous_rangeRound">#</a> <i>continuous</i>.<b>rangeRound</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-Sets the scale’s [*range*](#continuous_range) to the specified array of values while also setting the scale’s [interpolator](#continuous_interpolate) to [interpolateRound](https://github.com/xswei/d3-interpolate#interpolateRound). This is a convenience method equivalent to:
+设置比例尺的 [*range*](#continuous_range) 为指定的数组同时设置比例尺的 [interpolator](#continuous_interpolate) 为 [interpolateRound](https://github.com/xswei/d3-interpolate#interpolateRound). 这是一个便捷方法等价于：
 
 ```js
 continuous
@@ -127,11 +125,11 @@ continuous
     .interpolate(d3.interpolateRound);
 ```
 
-The rounding interpolator is sometimes useful for avoiding antialiasing artifacts, though also consider the [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) “crispEdges” styles. Note that this interpolator can only be used with numeric ranges.
+启用插值器的四舍五入有时对避免反锯齿有用，当然也可以使用 [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) 的“crispEdges” 样式. 注意这种只针对数值类型的 `range` 有效。
 
 <a name="continuous_clamp" href="#continuous_clamp">#</a> <i>continuous</i>.<b>clamp</b>(<i>clamp</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-If *clamp* is specified, enables or disables clamping accordingly. If clamping is disabled and the scale is passed a value outside the [domain](#continuous_domain), the scale may return a value outside the [range](#continuous_range) through extrapolation. If clamping is enabled, the return value of the scale is always within the scale’s range. Clamping similarly applies to [*continuous*.invert](#continuous_invert). For example:
+如果指定了 *clamp* 则启用或者关闭比例尺的钳位功能。如果没有启用钳位功能，则当传入位于 [domain](#continuous_domain) 之外的值时会推算出对应的、处于 [range](#continuous_range) 之外的值。如果启用了钳位功能，则能保证返回的值总是处于 [range](#continuous_range)。钳位功能对于 [*continuous*.invert](#continuous_invert) 也是同样的效果。例如：
 
 ```js
 var x = d3.scaleLinear()
@@ -146,13 +144,15 @@ x(-10); // 0, clamped to range
 x.invert(-160); // 10, clamped to domain
 ```
 
-If *clamp* is not specified, returns whether or not the scale currently clamps values to within the range.
+如果没有指定 *clamp* 则返回当前比例尺是否启用了钳位功能。
 
 <a name="continuous_interpolate" href="#continuous_interpolate">#</a> <i>continuous</i>.<b>interpolate</b>(<i>interpolate</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
+如果指定了 *interpolate* 则设置比例尺的 [range](#continuous_range) 插值器。插值器函数被用来在两个相邻的来自 `range` 值之间进行插值；这些插值器将输入值 *t* 归一化到 [0, 1] 之间。如果 *factory* 没有指定则返回比例尺的当前插值函数。默认为 [interpolate](https://github.com/xswei/d3-interpolate#interpolate). 参考 [d3-interpolate](https://github.com/xswei/d3-interpolate) 获取更多关于插值器的介绍。
+
 If *interpolate* is specified, sets the scale’s [range](#continuous_range) interpolator factory. This interpolator factory is used to create interpolators for each adjacent pair of values from the range; these interpolators then map a normalized domain parameter *t* in [0, 1] to the corresponding value in the range. If *factory* is not specified, returns the scale’s current interpolator factory, which defaults to [interpolate](https://github.com/xswei/d3-interpolate#interpolate). See [d3-interpolate](https://github.com/xswei/d3-interpolate) for more interpolators.
 
-For example, consider a diverging color scale with three colors in the range:
+例如，考虑输出范围为三个颜色值：
 
 ```js
 var color = d3.scaleLinear()
@@ -160,14 +160,14 @@ var color = d3.scaleLinear()
     .range(["red", "white", "green"]);
 ```
 
-Two interpolators are created internally by the scale, equivalent to:
+内部会创建两个插值器，等价于：
 
 ```js
 var i0 = d3.interpolate("red", "white"),
     i1 = d3.interpolate("white", "green");
 ```
 
-A common reason to specify a custom interpolator is to change the color space of interpolation. For example, to use [HCL](https://github.com/xswei/d3-interpolate#interpolateHcl):
+自定义插值器的一个直接的原因是可以修改插值器的颜色空间，比如使用 [HCL](https://github.com/xswei/d3-interpolate#interpolateHcl) 颜色空间:
 
 ```js
 var color = d3.scaleLinear()
@@ -176,7 +176,7 @@ var color = d3.scaleLinear()
     .interpolate(d3.interpolateHcl);
 ```
 
-Or for [Cubehelix](https://github.com/xswei/d3-interpolate#interpolateCubehelix) with a custom gamma:
+或者自定义 [Cubehelix](https://github.com/xswei/d3-interpolate#interpolateCubehelix) 的 `gamma` 值:
 
 ```js
 var color = d3.scaleLinear()
@@ -185,17 +185,19 @@ var color = d3.scaleLinear()
     .interpolate(d3.interpolateCubehelix.gamma(3));
 ```
 
-Note: the [default interpolator](https://github.com/xswei/d3-interpolate#interpolate) **may reuse return values**. For example, if the range values are objects, then the value interpolator always returns the same object, modifying it in-place. If the scale is used to set an attribute or style, this is typically acceptable (and desirable for performance); however, if you need to store the scale’s return value, you must specify your own interpolator or make a copy as appropriate.
+注意：[default interpolator](https://github.com/xswei/d3-interpolate#interpolate) **可能复用返回值**。例如，如果 `range` 为对象，则 `range` 插值器总是返回同一个修改后的对象。如果比例尺用来设置样式或者属性，则可以使用这种方式，但是如果你想存储比例尺的返回值，则必须指定自己的插值器或者适当的复制。
 
 <a name="continuous_ticks" href="#continuous_ticks">#</a> <i>continuous</i>.<b>ticks</b>([<i>count</i>])
 
-Returns approximately *count* representative values from the scale’s [domain](#continuous_domain). If *count* is not specified, it defaults to 10. The returned tick values are uniformly spaced, have human-readable values (such as multiples of powers of 10), and are guaranteed to be within the extent of the domain. Ticks are often used to display reference lines, or tick marks, in conjunction with the visualized data. The specified *count* is only a hint; the scale may return more or fewer values depending on the domain. See also d3-array’s [ticks](https://github.com/xswei/d3-array#ticks).
+返回近似的用来表示比例尺 [domain](#continuous_domain) 的 *count*。如果没有指定 *count* 则默认为 `10`. 返回的 `tick` 值的个数是均匀的并且对人类友好的(比如都为 `10` 的整数倍)，切在 `domain` 的范围内。`ticks` 经常被用来显示刻度线或者刻度标记。指定的 *count* 仅仅是一个参考，比例尺会根据 `domain` 计算具体的 `ticks`。可以参考 `d3-array` 的 [ticks](https://github.com/xswei/d3-array#ticks).
 
 <a name="continuous_tickFormat" href="#continuous_tickFormat">#</a> <i>continuous</i>.<b>tickFormat</b>([<i>count</i>[, <i>specifier</i>]]) [<>](https://github.com/xswei/d3-scale/blob/master/src/tickFormat.js "Source")
 
+返回一个调整小时刻度值的 [number format](https://github.com/xswei/d3-format) 函数。*count* 应该与通过 [tick values](#continuous_ticks) 指定的 *count* 相同。
+
 Returns a [number format](https://github.com/xswei/d3-format) function suitable for displaying a tick value, automatically computing the appropriate precision based on the fixed interval between tick values. The specified *count* should have the same value as the count that is used to generate the [tick values](#continuous_ticks).
 
-An optional *specifier* allows a [custom format](https://github.com/xswei/d3-format#locale_format) where the precision of the format is automatically set by the scale as appropriate for the tick interval. For example, to format percentage change, you might say:
+可选的 *specifier* 允许 [custom format(自定义格式)](https://github.com/xswei/d3-format#locale_format)，格式的精度会自动设置。比如将数字格式化为百分比：
 
 ```js
 var x = d3.scaleLinear()
@@ -208,17 +210,17 @@ var ticks = x.ticks(5),
 ticks.map(tickFormat); // ["-100%", "-50%", "+0%", "+50%", "+100%"]
 ```
 
-If *specifier* uses the format type `s`, the scale will return a [SI-prefix format](https://github.com/xswei/d3-format#locale_formatPrefix) based on the largest value in the domain. If the *specifier* already specifies a precision, this method is equivalent to [*locale*.format](https://github.com/xswei/d3-format#locale_format).
+如果 *specifier* 使用格式类型 `s` 则比例尺会根据 `domain` 的最大值返回 [SI-prefix format](https://github.com/xswei/d3-format#locale_formatPrefix)。如果 *specifier* 已经指定了精度则这个方法等价于 [*locale*.format](https://github.com/xswei/d3-format#locale_format).
 
 <a name="continuous_nice" href="#continuous_nice">#</a> <i>continuous</i>.<b>nice</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/nice.js "Source")
 
-Extends the [domain](#continuous_domain) so that it starts and ends on nice round values. This method typically modifies the scale’s domain, and may only extend the bounds to the nearest round value. An optional tick *count* argument allows greater control over the step size used to extend the bounds, guaranteeing that the returned [ticks](#continuous_ticks) will exactly cover the domain. Nicing is useful if the domain is computed from data, say using [extent](https://github.com/xswei/d3-array#extent), and may be irregular. For example, for a domain of [0.201479…, 0.996679…], a nice domain might be [0.2, 1.0]. If the domain has more than two values, nicing the domain only affects the first and last value. See also d3-array’s [tickStep](https://github.com/xswei/d3-array#tickStep).
+扩展 [domain](#continuous_domain) 使其为整。这个方法通常会修改 `domain` 将其扩展为最接近的整数值。可选的 *count* 参数可以用来控制扩展的步长。对 `domain` 的取整在根据数据计算 `domain` 时候很有用。比如计算后的 `domain` 为 [0.201479…, 0.996679…] 时，在经过取整之后会被扩展为 [0.2, 1.0]。如果 `domain` 包含两个以上的元素，则取整操作仅仅影响第一个和最后一个值。参考 `d3-array` 的 [tickStep](https://github.com/xswei/d3-array#tickStep) 操作。
 
-Nicing a scale only modifies the current domain; it does not automatically nice domains that are subsequently set using [*continuous*.domain](#continuous_domain). You must re-nice the scale after setting the new domain, if desired.
+取整操作仅仅影响当前 `domain`, 不会对之后通过 [*continuous*.domain](#continuous_domain) 设置的 `domain` 产生影响，如果需要在重置 `domain` 之后重新取整，则必须在重置之后再次取整。
 
 <a name="continuous_copy" href="#continuous_copy">#</a> <i>continuous</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回一个当前比例尺的拷贝。返回的拷贝和当前比例尺之间不会相互影响。
 
 #### Linear Scales
 
