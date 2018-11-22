@@ -226,67 +226,67 @@ ticks.map(tickFormat); // ["-100%", "-50%", "+0%", "+50%", "+100%"]
 
 <a name="scaleLinear" href="#scaleLinear">#</a> d3.<b>scaleLinear</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/linear.js "Source")
 
-Constructs a new [continuous scale](#continuous-scales) with the unit [domain](#continuous_domain) [0, 1], the unit [range](#continuous_range) [0, 1], the [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#continuous_interpolate) and [clamping](#continuous_clamp) disabled. Linear scales are a good default choice for continuous quantitative data because they preserve proportional differences. Each range value *y* can be expressed as a function of the domain value *x*: *y* = *mx* + *b*.
+使用单位 [domain](#continuous_domain) [0, 1], 单位 [range](#continuous_range) [0, 1], 以及 [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#continuous_interpolate) 和关闭的 [clamping](#continuous_clamp) 构造一个新的 [continuous scale](#continuous-scales)。线性插值器是一个很好的适用于连续定量数据的比例尺，因为它很好的保留了比例差异。每一个 `range` 中的值 *y* 都可以被表示为一个函数：*y* = *mx* + *b*，其中 *x* 为对应的 `domain` 中的值。
 
 #### Power Scales
 
-Power scales are similar to [linear scales](#linear-scales), except an exponential transform is applied to the input domain value before the output range value is computed. Each range value *y* can be expressed as a function of the domain value *x*: *y* = *mx^k* + *b*, where *k* is the [exponent](#pow_exponent) value. Power scales also support negative domain values, in which case the input value and the resulting output value are multiplied by -1.
+幂比例尺与 [linear scales](#linear-scales) 类似，只不过在计算输出 `range` 值之前对 `domain` 值应用了指数变换。每一个输出值 *y* 可以表示为 *x* 的一个函数：*y* = *mx^k* + *b*，其中 *k* 为 [exponent](#pow_exponent) 值。幂比例尺也支持值为负的输入值，这种情况下输入值和输出值都会被乘以 `-1`.
 
 <a name="scalePow" href="#scalePow">#</a> d3.<b>scalePow</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-Constructs a new [continuous scale](#continuous-scales) with the unit [domain](#continuous_domain) [0, 1], the unit [range](#continuous_range) [0, 1], the [exponent](#pow_exponent) 1, the [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#continuous_interpolate) and [clamping](#continuous_clamp) disabled. (Note that this is effectively a [linear](#linear-scales) scale until you set a different exponent.)
+使用单位 [domain](#continuous_domain) [0, 1], 单位 [range](#continuous_range) [0, 1], 指数 [exponent](#pow_exponent) 为 1, 以及 [default(默认的)](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#continuous_interpolate) 并关闭 [clamping](#continuous_clamp) 构造一个新的 [continuous scale](#continuous-scales)。（在设置指数之前，与线性比例尺功效一样）。
 
 <a name="pow" href="#_pow">#</a> <i>pow</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*](#_continuous).
+参考 [*continuous*](#_continuous).
 
 <a name="pow_invert" href="#pow_invert">#</a> <i>pow</i>.<b>invert</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.invert](#continuous_invert).
+参考 [*continuous*.invert](#continuous_invert).
 
 <a name="pow_exponent" href="#pow_exponent">#</a> <i>pow</i>.<b>exponent</b>([<i>exponent</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-If *exponent* is specified, sets the current exponent to the given numeric value. If *exponent* is not specified, returns the current exponent, which defaults to 1. (Note that this is effectively a [linear](#linear-scales) scale until you set a different exponent.)
+如果指定了 *exponent* 则将当前幂比例尺的指数设置为指定的值。如果没有指定 *exponent* 则返回当前的指数，默认为 `1`。（指数为 `1` 时候，与线性比例尺功效一样）。
 
 <a name="pow_domain" href="#pow_domain">#</a> <i>pow</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.domain](#continuous_domain).
+参考 [*continuous*.domain](#continuous_domain).
 
 <a name="pow_range" href="#pow_range">#</a> <i>pow</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.range](#continuous_range).
+参考 [*continuous*.range](#continuous_range).
 
 <a name="pow_rangeRound" href="#pow_rangeRound">#</a> <i>pow</i>.<b>rangeRound</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.rangeRound](#continuous_rangeRound).
+参考 [*continuous*.rangeRound](#continuous_rangeRound).
 
 <a name="pow_clamp" href="#pow_clamp">#</a> <i>pow</i>.<b>clamp</b>(<i>clamp</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.clamp](#continuous_clamp).
+参考 [*continuous*.clamp](#continuous_clamp).
 
 <a name="pow_interpolate" href="#pow_interpolate">#</a> <i>pow</i>.<b>interpolate</b>(<i>interpolate</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.interpolate](#continuous_interpolate).
+参考 [*continuous*.interpolate](#continuous_interpolate).
 
 <a name="pow_ticks" href="#pow_ticks">#</a> <i>pow</i>.<b>ticks</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.ticks](#continuous_ticks).
+参考 [*continuous*.ticks](#continuous_ticks).
 
 <a name="pow_tickFormat" href="#pow_tickFormat">#</a> <i>pow</i>.<b>tickFormat</b>([<i>count</i>[, <i>specifier</i>]]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.tickFormat](#continuous_tickFormat).
+参考 [*continuous*.tickFormat](#continuous_tickFormat).
 
 <a name="pow_nice" href="#pow_nice">#</a> <i>pow</i>.<b>nice</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.nice](#continuous_nice).
+参考 [*continuous*.nice](#continuous_nice).
 
 <a name="pow_copy" href="#pow_copy">#</a> <i>pow</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-See [*continuous*.copy](#continuous_copy).
+参考 [*continuous*.copy](#continuous_copy).
 
 <a name="scaleSqrt" href="#scaleSqrt">#</a> d3.<b>scaleSqrt</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/pow.js "Source")
 
-Constructs a new [continuous](#continuous-scales) [power scale](#power-scales) with the unit [domain](#continuous_domain) [0, 1], the unit [range](#continuous_range) [0, 1], the [exponent](#pow_exponent) 0.5, the [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#continuous_interpolate) and [clamping](#continuous_clamp) disabled. This is a convenience method equivalent to `d3.scalePow().exponent(0.5)`.
+使用单位 [domain](#continuous_domain) [0, 1], 单位 [range](#continuous_range) [0, 1], [exponent](#pow_exponent) 为 `0.5`, [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#continuous_interpolate) 并关闭 [clamping](#continuous_clamp) 构造一个新的连续的 [power scale](#power-scales)。这是 `d3.scalePow().exponent(0.5)` 的一个便捷方式。
 
 #### Log Scales
 
