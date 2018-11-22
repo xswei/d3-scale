@@ -290,21 +290,21 @@ ticks.map(tickFormat); // ["-100%", "-50%", "+0%", "+50%", "+100%"]
 
 #### Log Scales
 
-Log scales are similar to [linear scales](#linear-scales), except a logarithmic transform is applied to the input domain value before the output range value is computed. The mapping to the range value *y* can be expressed as a function of the domain value *x*: *y* = *m* log(<i>x</i>) + *b*.
+对数比例尺与 [linear scales](#linear-scales) 类似。只不过在计算输出值之前对输入值进行了对数转换。对应的 *y* 值可以表示为 *x* 的函数：*y* = *m* log(<i>x</i>) + *b*.
 
-As log(0) = -∞, a log scale domain must be **strictly-positive or strictly-negative**; the domain must not include or cross zero. A log scale with a positive domain has a well-defined behavior for positive values, and a log scale with a negative domain has a well-defined behavior for negative values. (For a negative domain, input and output values are implicitly multiplied by -1.) The behavior of the scale is undefined if you pass a negative value to a log scale with a positive domain or vice versa.
+因为  log(0) = -∞，所以对数比例尺的输入值**必须严格为负或者严格为正**；输入范围必须不能包含或跨过 `0`. 如果将负值传递给输入范围为正的对数比例尺，则返回未定义，反之亦然。
 
 <a name="scaleLog" href="#scaleLog">#</a> d3.<b>scaleLog</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-Constructs a new [continuous scale](#continuous-scales) with the [domain](#log_domain) [1, 10], the unit [range](#log_range) [0, 1], the [base](#log_base) 10, the [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#log_interpolate) and [clamping](#log_clamp) disabled.
+使用单位 [domain](#log_domain) [1, 10], 单位 [range](#log_range) [0, 1],  [base(基)](#log_base) 为 10, [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#log_interpolate) 并关闭 [clamping] 构造一个新的 [continuous scale](#continuous-scales)。
 
 <a name="log" href="#_log">#</a> <i>log</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*](#_continuous).
+参考 [*continuous*](#_continuous).
 
 <a name="log_invert" href="#log_invert">#</a> <i>log</i>.<b>invert</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*.invert](#continuous_invert).
+参考 [*continuous*.invert](#continuous_invert).
 
 <a name="log_base" href="#log_base">#</a> <i>log</i>.<b>base</b>([<i>base</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
@@ -312,53 +312,53 @@ If *base* is specified, sets the base for this logarithmic scale to the specifie
 
 <a name="log_domain" href="#log_domain">#</a> <i>log</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*.domain](#continuous_domain).
+参考 [*continuous*.domain](#continuous_domain).
 
 <a name="log_range" href="#log_range">#</a> <i>log</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/continuous.js "Source")
 
-See [*continuous*.range](#continuous_range).
+参考 [*continuous*.range](#continuous_range).
 
 <a name="log_rangeRound" href="#log_rangeRound">#</a> <i>log</i>.<b>rangeRound</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*.rangeRound](#continuous_rangeRound).
+参考 [*continuous*.rangeRound](#continuous_rangeRound).
 
 <a name="log_clamp" href="#log_clamp">#</a> <i>log</i>.<b>clamp</b>(<i>clamp</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*.clamp](#continuous_clamp).
+参考 [*continuous*.clamp](#continuous_clamp).
 
 <a name="log_interpolate" href="#log_interpolate">#</a> <i>log</i>.<b>interpolate</b>(<i>interpolate</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*.interpolate](#continuous_interpolate).
+参考 [*continuous*.interpolate](#continuous_interpolate).
 
 <a name="log_ticks" href="#log_ticks">#</a> <i>log</i>.<b>ticks</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-Like [*continuous*.ticks](#continuous_ticks), but customized for a log scale. If the [base](#log_base) is an integer, the returned ticks are uniformly spaced within each integer power of base; otherwise, one tick per power of base is returned. The returned ticks are guaranteed to be within the extent of the domain. If the orders of magnitude in the [domain](#log_domain) is greater than *count*, then at most one tick per power is returned. Otherwise, the tick values are unfiltered, but note that you can use [*log*.tickFormat](#log_tickFormat) to filter the display of tick labels. If *count* is not specified, it defaults to 10.
+与 [*continuous*.ticks](#continuous_ticks) 类似，但是是对数比例尺特定的。如果 [base](#log_base) 为整数，则返回的 `ticks` 在基的每个整数幂内间隔均匀。否则，基的每个整数次幂一个 `tick`。如果没有指定 *count* 则默认为 `10`.
 
 <a name="log_tickFormat" href="#log_tickFormat">#</a> <i>log</i>.<b>tickFormat</b>([<i>count</i>[, <i>specifier</i>]]) [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-Like [*continuous*.tickFormat](#continuous_tickFormat), but customized for a log scale. The specified *count* typically has the same value as the count that is used to generate the [tick values](#continuous_ticks). If there are too many ticks, the formatter may return the empty string for some of the tick labels; however, note that the ticks are still shown. To disable filtering, specify a *count* of Infinity. When specifying a count, you may also provide a format *specifier* or format function. For example, to get a tick formatter that will display 20 ticks of a currency, say `log.tickFormat(20, "$,f")`. If the specifier does not have a defined precision, the precision will be set automatically by the scale, returning the appropriate format. This provides a convenient way of specifying a format whose precision will be automatically set by the scale.
+与 [*continuous*.tickFormat](#continuous_tickFormat) 类似，但是为对数比例尺定特定的。指定的 *count* 通常与生成 [tick values](#continuous_ticks) 的个数一致。如果个数太多的话，则 `formatter` 可能会对某些刻度返回空字符串，但是注意刻度仍然会显示。若要禁用筛选，请指定 *count* 为无穷大。可能还需要一个格式化 *specifier* 或者格式化函数。例如显示格式为货币并且刻度个数为 `20` 则可以定义为：`log.tickFormat(20, "$,f")`。如果格式化说明符没有指定精度则会自动计算。
 
 <a name="log_nice" href="#log_nice">#</a> <i>log</i>.<b>nice</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-Like [*continuous*.nice](#continuous_nice), except extends the domain to integer powers of [base](#log_base). For example, for a domain of [0.201479…, 0.996679…], and base 10, the nice domain is [0.1, 1]. If the domain has more than two values, nicing the domain only affects the first and last value.
+与 [*continuous*.nice](#continuous_nice) 类似，但是其实现是将 `domain` 扩展为 [base](#log_base) 的整数次幂。例如对于输入域为 [0.201479…, 0.996679…], 基为 `10` 的比例尺，则 `domain` 会被扩展为 [0.1, 1]。如果 `domain` 有两个以上元素，则只对第一个和最后一个元素有效。
 
 <a name="log_copy" href="#log_copy">#</a> <i>log</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/log.js "Source")
 
-See [*continuous*.copy](#continuous_copy).
+参考 [*continuous*.copy](#continuous_copy).
 
 #### Identity Scales
 
-Identity scales are a special case of [linear scales](#linear-scales) where the domain and range are identical; the scale and its invert method are thus the identity function. These scales are occasionally useful when working with pixel coordinates, say in conjunction with an axis or brush. Identity scales do not support [rangeRound](#continuous_rangeRound), [clamp](#continuous_clamp) or [interpolate](#continuous_interpolate).
+恒等比例尺是 [linear scales](#linear-scales) 的一种特殊情况。其输入域和值域是完全一致的；这种比例尺的映射以及反映射是完全恒等的。在处理像素坐标时，这些比例尺有时是有用的，例如与轴或画笔一起使用。恒等比例尺不支持 [rangeRound](#continuous_rangeRound), [clamp](#continuous_clamp) 或 [interpolate](#continuous_interpolate).
 
 <a name="scaleIdentity" href="#scaleIdentity">#</a> d3.<b>scaleIdentity</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/identity.js "Source")
 
-Constructs a new identity scale with the unit [domain](#continuous_domain) [0, 1] and the unit [range](#continuous_range) [0, 1].
+使用单元 [domain](#continuous_domain) [0, 1]和单元 [range](#continuous_range) [0, 1] 构造一个恒等比例尺。
 
 #### Time Scales
 
-Time scales are a variant of [linear scales](#linear-scales) that have a temporal domain: domain values are coerced to [dates](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date) rather than numbers, and [invert](#continuous_invert) likewise returns a date. Time scales implement [ticks](#time_ticks) based on [calendar intervals](https://github.com/xswei/d3-time), taking the pain out of generating axes for temporal domains.
+时间比例尺是 [linear scales](#linear-scales) 的一种变体。它的输入被强制转为 [dates](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date) 而不是数值类型，并且 [invert](#continuous_invert) 返回的是 `date` 类型。时间比例尺基于 [calendar intervals](https://github.com/xswei/d3-time) 实现 [ticks](#time_ticks)。
 
-For example, to create a position encoding:
+例如创建一个时间-位置映射比例尺：
 
 ```js
 var x = d3.scaleTime()
@@ -371,46 +371,46 @@ x.invert(200); // Sat Jan 01 2000 05:00:00 GMT-0800 (PST)
 x.invert(640); // Sat Jan 01 2000 16:00:00 GMT-0800 (PST)
 ```
 
-For a valid value *y* in the range, <i>time</i>(<i>time</i>.invert(<i>y</i>)) equals *y*; similarly, for a valid value *x* in the domain, <i>time</i>.invert(<i>time</i>(<i>x</i>)) equals *x*. The invert method is useful for interaction, say to determine the value in the domain that corresponds to the pixel location under the mouse.
+对于合法的输出值 *y*，<i>time</i>(<i>time</i>.invert(<i>y</i>)) 等于 *y*; 对于合法的输入值 *x*，<i>time</i>.invert(<i>time</i>(<i>x</i>)) 等于 *x*. 反转方法在交互时很有用，可以确定鼠标位置与时间之间的对应关系。
 
 <a name="scaleTime" href="#scaleTime">#</a> d3.<b>scaleTime</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-Constructs a new time scale with the [domain](#time_domain) [2000-01-01, 2000-01-02], the unit [range](#time_range) [0, 1], the [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#time_interpolate) and [clamping](#time_clamp) disabled.
+使用默认的 [domain](#time_domain) : [2000-01-01, 2000-01-02], 单位 [range](#time_range) [0, 1] 以及 [default](https://github.com/xswei/d3-interpolate#interpolate) [interpolator](#time_interpolate) 并关闭 [clamping](#time_clamp) 构造一个新的时间比例尺。
 
 <a name="time" href="#_time">#</a> <i>time</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*](#_continuous).
+参考 [*continuous*](#_continuous).
 
 <a name="time_invert" href="#time_invert">#</a> <i>time</i>.<b>invert</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*.invert](#continuous_invert).
+参考 [*continuous*.invert](#continuous_invert).
 
 <a name="time_domain" href="#time_domain">#</a> <i>time</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*.domain](#continuous_domain).
+参考 [*continuous*.domain](#continuous_domain).
 
 <a name="time_range" href="#time_range">#</a> <i>time</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*.range](#continuous_range).
+参考 [*continuous*.range](#continuous_range).
 
 <a name="time_rangeRound" href="#time_rangeRound">#</a> <i>time</i>.<b>rangeRound</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*.rangeRound](#continuous_rangeRound).
+参考 [*continuous*.rangeRound](#continuous_rangeRound).
 
 <a name="time_clamp" href="#time_clamp">#</a> <i>time</i>.<b>clamp</b>(<i>clamp</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*.clamp](#continuous_clamp).
+参考 [*continuous*.clamp](#continuous_clamp).
 
 <a name="time_interpolate" href="#time_interpolate">#</a> <i>time</i>.<b>interpolate</b>(<i>interpolate</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 
-See [*continuous*.interpolate](#continuous_interpolate).
+参考 [*continuous*.interpolate](#continuous_interpolate).
 
 <a name="time_ticks" href="#time_ticks">#</a> <i>time</i>.<b>ticks</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 <br><a name="time_ticks" href="#time_ticks">#</a> <i>time</i>.<b>ticks</b>([<i>interval</i>])
 
-Returns representative dates from the scale’s [domain](#time_domain). The returned tick values are uniformly-spaced (mostly), have sensible values (such as every day at midnight), and are guaranteed to be within the extent of the domain. Ticks are often used to display reference lines, or tick marks, in conjunction with the visualized data.
+从比例尺的 `domain` 中返回具有代表性的日期刻度。返回的刻度值是等间距的(大多数情况下)，并且是合理的(比如每天的午夜)，并且保证在输入域的范围内。刻度通常被用来显示参考刻度线或者刻度标记。
 
-An optional *count* may be specified to affect how many ticks are generated. If *count* is not specified, it defaults to 10. The specified *count* is only a hint; the scale may return more or fewer values depending on the domain. For example, to create ten default ticks, say:
+可选的 *count* 可以用来指定生成多少刻度。如果 *count* 没有指定则默认为 `10`。指定的 *count* 仅仅是一个参考值。最后返回的刻度个数可能或多或少。例如，创建一个默认的刻度值则可以：
 
 ```js
 var x = d3.scaleTime();
@@ -427,7 +427,7 @@ x.ticks(10);
 //  Sun Jan 02 2000 00:00:00 GMT-0800 (PST)]
 ```
 
-The following time intervals are considered for automatic ticks:
+如下的时间间隔在自动计算刻度时会被考虑：
 
 * 1-, 5-, 15- and 30-second.
 * 1-, 5-, 15- and 30-minute.
@@ -437,7 +437,7 @@ The following time intervals are considered for automatic ticks:
 * 1- and 3-month.
 * 1-year.
 
-In lieu of a *count*, a [time *interval*](https://github.com/xswei/d3-time#intervals) may be explicitly specified. To prune the generated ticks for a given time *interval*, use [*interval*.every](https://github.com/xswei/d3-time#interval_every). For example, to generate ticks at 15-[minute](https://github.com/xswei/d3-time#minute) intervals:
+作为 *count* 的替代物，可以指定一个明确的 [time *interval*](https://github.com/xswei/d3-time#intervals)。表示根据指定的时间 *interval(间隔)* 使用 [*interval*.every](https://github.com/xswei/d3-time#interval_every) 生成刻度。例如，每 `15`-[minute](https://github.com/xswei/d3-time#minute) 生成一个刻度：
 
 ```js
 var x = d3.scaleTime()
@@ -455,7 +455,7 @@ x.ticks(d3.timeMinute.every(15));
 //  Sat Jan 01 2000 02:00:00 GMT-0800 (PST)]
 ```
 
-Alternatively, pass a test function to [*interval*.filter](https://github.com/xswei/d3-time#interval_filter):
+或者给 [*interval*.filter](https://github.com/xswei/d3-time#interval_filter) 传递一个测试函数：
 
 ```js
 x.ticks(d3.timeMinute.filter(function(d) {
@@ -463,36 +463,36 @@ x.ticks(d3.timeMinute.filter(function(d) {
 }));
 ```
 
-Note: in some cases, such as with day ticks, specifying a *step* can result in irregular spacing of ticks because time intervals have varying length.
+注意：在某些情况下，比如使用日期为间隔时，可能会导致刻度间隔不均匀，因为时间间隔对应的输出区间长度可能不均匀。
 
 <a name="time_tickFormat" href="#time_tickFormat">#</a> <i>time</i>.<b>tickFormat</b>([<i>count</i>[, <i>specifier</i>]]) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 <br><a href="#time_tickFormat">#</a> <i>time</i>.<b>tickFormat</b>([<i>interval</i>[, <i>specifier</i>]])
 
-Returns a time format function suitable for displaying [tick](#time_ticks) values. The specified *count* or *interval* is currently ignored, but is accepted for consistency with other scales such as [*continuous*.tickFormat](#continuous_tickFormat). If a format *specifier* is specified, this method is equivalent to [format](https://github.com/xswei/d3-time-format#format). If *specifier* is not specified, the default time format is returned. The default multi-scale time format chooses a human-readable representation based on the specified date as follows:
+返回一个适用于显示日期类 [tick](#time_ticks) 的格式化函数。指定的 *count* 或 *interval* 目前是被忽略，但是为了保持与 [*continuous*.tickFormat](#continuous_tickFormat) 的一致性，可以这么使用。如果指定了格式化 *specifier* 则等价于 [format](https://github.com/xswei/d3-time-format#format)。如果 *specifier* 没有指定则返回默认的日期格式。默认的日期格式化会从以下人类友好的格式化说明符中选择合适的：
 
-* `%Y` - for year boundaries, such as `2011`.
-* `%B` - for month boundaries, such as `February`.
-* `%b %d` - for week boundaries, such as `Feb 06`.
-* `%a %d` - for day boundaries, such as `Mon 07`.
-* `%I %p` - for hour boundaries, such as `01 AM`.
-* `%I:%M` - for minute boundaries, such as `01:23`.
-* `:%S` - for second boundaries, such as `:45`.
-* `.%L` - milliseconds for all other times, such as `.012`.
+* `%Y` - 年份，比如 `2011`.
+* `%B` - 月份，比如 `February`.
+* `%b %d` - 周, 比如 `Feb 06`.
+* `%a %d` - 天, 比如 `Mon 07`.
+* `%I %p` - 时, 比如 `01 AM`.
+* `%I:%M` - 分钟, 比如 `01:23`.
+* `:%S` - 秒, 比如 `:45`.
+* `.%L` - 毫秒, 比如 `.012`.
 
-Although somewhat unusual, this default behavior has the benefit of providing both local and global context: for example, formatting a sequence of ticks as [11 PM, Mon 07, 01 AM] reveals information about hours, dates, and day simultaneously, rather than just the hours [11 PM, 12 AM, 01 AM]. See [d3-time-format](https://github.com/xswei/d3-time-format) if you’d like to roll your own conditional time format.
+虽然有些不同寻常，但这种默认的格式具有同时提供本地和全局上下文的优点: 将时间序列格式化为 `[11 PM, Mon 07, 01 AM]`，与 `[11 PM, 12 AM, 01 AM]` 相比可以同时显示有关小时、日期和日期的信息，如果想自定义自己的时间格式，请参考 [d3-time-format](https://github.com/xswei/d3-time-format)。
 
 <a name="time_nice" href="#time_nice">#</a> <i>time</i>.<b>nice</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/time.js "Source")
 <br><a name="time_nice" href="#time_nice">#</a> <i>time</i>.<b>nice</b>([<i>interval</i>[, <i>step</i>]])
 
-Extends the [domain](#time_domain) so that it starts and ends on nice round values. This method typically modifies the scale’s domain, and may only extend the bounds to the nearest round value. See [*continuous*.nice](#continuous_nice) for more.
+扩展比例尺的 `domain` 使其开始和结束值更规整。这个方法会修改比例尺的 `domain`，并且只将其扩展到最近的整值。参考 [*continuous*.nice](#continuous_nice)。
 
-An optional tick *count* argument allows greater control over the step size used to extend the bounds, guaranteeing that the returned [ticks](#time_ticks) will exactly cover the domain. Alternatively, a [time *interval*](https://github.com/xswei/d3-time#intervals) may be specified to explicitly set the ticks. If an *interval* is specified, an optional *step* may also be specified to skip some ticks. For example, `time.nice(d3.timeSecond, 10)` will extend the domain to an even ten seconds (0, 10, 20, <i>etc.</i>). See [*time*.ticks](#time_ticks) and [*interval*.every](https://github.com/xswei/d3-time#interval_every) for further detail.
+可选的刻度 *count* 允许对扩展步骤大小进行更精确的控制，确保返回的刻度数正好覆盖整个 `domain`。或者可以显示的指定一个 [time *interval*](https://github.com/xswei/d3-time#intervals) 来设置刻度。如果指定了 *interval* 则还可以指定一个可选步长来跳过一些刻度。例如 `time.nice(d3.timeSecond, 10)` 在扩展 `domain` 时会根据步长 `10秒` 来扩展（`0s`, `10s`, `20a` 等）。参考 [*time*.ticks](#time_ticks) 和 [*interval*.every](https://github.com/xswei/d3-time#interval_every) 获取详细介绍。
 
-Nicing is useful if the domain is computed from data, say using [extent](https://github.com/xswei/d3-array#extent), and may be irregular. For example, for a domain of [2009-07-13T00:02, 2009-07-13T23:48], the nice domain is [2009-07-13, 2009-07-14]. If the domain has more than two values, nicing the domain only affects the first and last value.
+当输入范围根据数据计算时，取整操作很有用。例如对于时间范围 `[2009-07-13T00:02, 2009-07-13T23:48]` 取整后为 `[2009-07-13, 2009-07-14]`。如果输入域有两个以上元素，则取整只对第一个和最后一个元素生效。
 
 <a name="scaleUtc" href="#scaleUtc">#</a> d3.<b>scaleUtc</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/utcTime.js "Source")
 
-Equivalent to [time](#time), but the returned time scale operates in [Coordinated Universal Time](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) rather than local time.
+等价于 [time](#time)，但是返回的时间格式是 [Coordinated Universal Time(协调世界时)](https://en.wikipedia.org/wiki/Coordinated_Universal_Time) 而不是当地时间。
 
 ### Sequential Scales
 
