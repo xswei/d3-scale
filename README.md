@@ -496,11 +496,11 @@ x.ticks(d3.timeMinute.filter(function(d) {
 
 ### Sequential Scales
 
-Sequential scales, like [diverging scales](#diverging-scales), are similar to [continuous scales](#continuous-scales) in that they map a continuous, numeric input domain to a continuous output range. However, unlike continuous scales, the output range of a sequential scale is fixed by its interpolator and not configurable. These scales do not expose [invert](#continuous_invert), [range](#continuous_range), [rangeRound](#continuous_rangeRound) and [interpolate](#continuous_interpolate) methods.
+序列比例尺，与 [diverging scales](#diverging-scales) 和 [continuous scales](#continuous-scales) 类似，将连续的数字输入域映射到连续的输出域。但是与连续比例尺不一样的是，它的输出域是根据指定的插值器内置且不可配置，其次它的插值方式也不可配置。不暴露 [invert](#continuous_invert), [range](#continuous_range), [rangeRound](#continuous_rangeRound) 和 [interpolate](#continuous_interpolate) 方法。
 
 <a name="scaleSequential" href="#scaleSequential">#</a> d3.<b>scaleSequential</b>(<i>interpolator</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-Constructs a new sequential scale with the given [*interpolator*](#sequential_interpolator) function. When the scale is [applied](#_sequential), the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the minimum value and 1 represents the maximum value. For example, to implement the ill-advised [HSL](https://github.com/xswei/d3-color#hsl) rainbow scale:
+使用跟定的 [*interpolator*](#sequential_interpolator) 函数构造一个新的序列比例尺。在应用比例尺时，可以传入的值 `[0, 1]`。其中 `0` 表示最小值，`1` 表示最大值。例如实现一个 [HSL](https://github.com/xswei/d3-color#hsl) 具有周期性的颜色插值器：
 
 ```js
 var rainbow = d3.scaleSequential(function(t) {
@@ -508,7 +508,7 @@ var rainbow = d3.scaleSequential(function(t) {
 });
 ```
 
-A more aesthetically-pleasing and perceptually-effective cyclical hue encoding is to use [d3.interpolateRainbow](https://github.com/xswei/d3-scale-chromatic/blob/master/README.md#interpolateRainbow):
+使用 [d3.interpolateRainbow](https://github.com/xswei/d3-scale-chromatic/blob/master/README.md#interpolateRainbow) 实现一种更优雅并且更高效的周期性颜色插值器：
 
 ```js
 var rainbow = d3.scaleSequential(d3.interpolateRainbow);
@@ -516,23 +516,23 @@ var rainbow = d3.scaleSequential(d3.interpolateRainbow);
 
 <a name="_sequential" href="#_sequential">#</a> <i>sequential</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-See [*continuous*](#_continuous).
+参考 [*continuous*](#_continuous).
 
 <a name="sequential_domain" href="#sequential_domain">#</a> <i>sequential</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-See [*continuous*.domain](#continuous_domain). Note that a sequential scale’s domain must be numeric and must contain exactly two values.
+参考 [*continuous*.domain](#continuous_domain). Note that a sequential scale’s domain must be numeric and must contain exactly two values.
 
 <a name="sequential_clamp" href="#sequential_clamp">#</a> <i>sequential</i>.<b>clamp</b>([<i>clamp</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-See [*continuous*.clamp](#continuous_clamp).
+参考 [*continuous*.clamp](#continuous_clamp).
 
 <a name="sequential_interpolator" href="#sequential_interpolator">#</a> <i>sequential</i>.<b>interpolator</b>([<i>interpolator</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-If *interpolator* is specified, sets the scale’s interpolator to the specified function. If *interpolator* is not specified, returns the scale’s current interpolator.
+如果指定了 *interpolate* 则将比例尺的插值器设置为指定的函数。如果没有指定 *interpolate* 则返回当前比例尺的插值器。
 
 <a name="sequential_copy" href="#sequential_copy">#</a> <i>sequential</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-See [*continuous*.copy](#continuous_copy).
+参考 [*continuous*.copy](#continuous_copy).
 
 ### Diverging Scales
 
