@@ -536,11 +536,11 @@ var rainbow = d3.scaleSequential(d3.interpolateRainbow);
 
 ### Diverging Scales
 
-Diverging scales, like [sequential scales](#sequential-scales), are similar to [continuous scales](#continuous-scales) in that they map a continuous, numeric input domain to a continuous output range. However, unlike continuous scales, the output range of a diverging scale is fixed by its interpolator and not configurable. These scales do not expose [invert](#continuous_invert), [range](#continuous_range), [rangeRound](#continuous_rangeRound) and [interpolate](#continuous_interpolate) methods.
+发散比例尺，与 [sequential scales](#sequential-scales) 和 [continuous scales](#continuous-scales) 类似，讲一个连续的数值类型输入映射到连续的输出域。但是与连续比例尺不同的是，发散比例尺的输出是根据插值器计算不可配置。不暴露 [invert](#continuous_invert), [range](#continuous_range), [rangeRound](#continuous_rangeRound) 和 [interpolate](#continuous_interpolate) 方法.
 
 <a name="scaleDiverging" href="#scaleDiverging">#</a> d3.<b>scaleDiverging</b>(<i>interpolator</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-Constructs a new diverging scale with the given [*interpolator*](#diverging_interpolator) function. When the scale is [applied](#_diverging), the interpolator will be invoked with a value typically in the range [0, 1], where 0 represents the extreme negative value, 0.5 represents the neutral value, and 1 represents the extreme positive value. For example, using [d3.interpolateSpectral](https://github.com/xswei/d3-scale-chromatic/blob/master/README.md#interpolateSpectral):
+根据跟定的 [*interpolator*](#diverging_interpolator) 函数构建一个新的发散比例尺。当比例尺被 [applied](#_diverging) 时，插值器将会根据范围为 `[0,1]` 的输入值计算对应的输出值，其中 `0` 表示负向极小值，`0.5` 表示中位值，`1` 表示正向极大值。例如使用 [d3.interpolateSpectral](https://github.com/xswei/d3-scale-chromatic/blob/master/README.md#interpolateSpectral)：
 
 ```js
 var spectral = d3.scaleDiverging(d3.interpolateSpectral);
@@ -548,35 +548,35 @@ var spectral = d3.scaleDiverging(d3.interpolateSpectral);
 
 <a name="_diverging" href="#_diverging">#</a> <i>diverging</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-See [*continuous*](#_continuous).
+参考 [*continuous*](#_continuous).
 
 <a name="diverging_domain" href="#diverging_domain">#</a> <i>diverging</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-See [*continuous*.domain](#continuous_domain). Note that a diverging scale’s domain must be numeric and must contain exactly three values. The default domain is [0, 0.5, 1].
+参考 [*continuous*.domain](#continuous_domain). Note that a diverging scale’s domain must be numeric and must contain exactly three values. The default domain is [0, 0.5, 1].
 
 <a name="diverging_clamp" href="#diverging_clamp">#</a> <i>diverging</i>.<b>clamp</b>([<i>clamp</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-See [*continuous*.clamp](#continuous_clamp).
+参考 [*continuous*.clamp](#continuous_clamp).
 
 <a name="diverging_interpolator" href="#diverging_interpolator">#</a> <i>diverging</i>.<b>interpolator</b>([<i>interpolator</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-If *interpolator* is specified, sets the scale’s interpolator to the specified function. If *interpolator* is not specified, returns the scale’s current interpolator.
+如果指定了 *interpolate* 则将比例尺的插值器设置为指定的函数，如果没有指定 *interpolate* 则返回当前比例尺的插值器。
 
 <a name="diverging_copy" href="#diverging_copy">#</a> <i>diverging</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-See [*continuous*.copy](#continuous_copy).
+参考 [*continuous*.copy](#continuous_copy).
 
 ### Quantize Scales
 
-Quantize scales are similar to [linear scales](#linear-scales), except they use a discrete rather than continuous range. The continuous input domain is divided into uniform segments based on the number of values in (*i.e.*, the cardinality of) the output range. Each range value *y* can be expressed as a quantized linear function of the domain value *x*: *y* = *m round(x)* + *b*. See [bl.ocks.org/4060606](http://bl.ocks.org/mbostock/4060606) for an example.
+量化比例尺与 [linear scales](#linear-scales) 类似，但是其输出区间是离散的而不是连续的。连续的输入域根据输出域被分割为均匀的片段。每一个输出域中的值 *y* 都可以定义为输入域中 *x* 值的一个线性函数：*x*: *y* = *m round(x)* + *b*. 参考 [bl.ocks.org/4060606](http://bl.ocks.org/mbostock/4060606) 获取示例。
 
 <a name="scaleQuantize" href="#scaleQuantize">#</a> d3.<b>scaleQuantize</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-Constructs a new quantize scale with the unit [domain](#quantize_domain) [0, 1] and the unit [range](#quantize_range) [0, 1]. Thus, the default quantize scale is equivalent to the [Math.round](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/round) function.
+使用单位输入域 [domain](#quantize_domain) : `[0, 1]` 和单位输出域 [range](#quantize_range) : `[0, 1]`构造一个新的量化比例尺。默认的量化比例尺等效于 [Math.round](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/round) 函数。
 
 <a name="_quantize" href="#_quantize">#</a> <i>quantize</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-Given a *value* in the input [domain](#quantize_domain), returns the corresponding value in the output [range](#quantize_range). For example, to apply a color encoding:
+根据给定的输入域中的值 *value* 返回对应的输出域汇总的值。例如对位于 `[0,1]` 中的值进行两种颜色编码：
 
 ```js
 var color = d3.scaleQuantize()
@@ -587,7 +587,7 @@ color(0.49); // "brown"
 color(0.51); // "steelblue"
 ```
 
-Or dividing the domain into three equally-sized parts with different range values to compute an appropriate stroke width:
+或者将输入域划分为三个三个大小相等、范围值不同的片段来计算合适的笔画宽度:
 
 ```js
 var width = d3.scaleQuantize()
@@ -601,7 +601,7 @@ width(80); // 4
 
 <a name="quantize_invertExtent" href="#quantize_invertExtent">#</a> <i>quantize</i>.<b>invertExtent</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-Returns the extent of values in the [domain](#quantize_domain) [<i>x0</i>, <i>x1</i>] for the corresponding *value* in the [range](#quantize_range): the inverse of [*quantize*](#_quantize). This method is useful for interaction, say to determine the value in the domain that corresponds to the pixel location under the mouse.
+根据指定的输出域中的值，计算对应的输入域的**范围** [<i>x0</i>, <i>x1</i>]。这个方法在交互时很有用，比如根据与鼠标像素对应值反推输入域的范围。
 
 ```js
 var width = d3.scaleQuantize()
@@ -613,27 +613,27 @@ width.invertExtent(2); // [40, 70]
 
 <a name="quantize_domain" href="#quantize_domain">#</a> <i>quantize</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-If *domain* is specified, sets the scale’s domain to the specified two-element array of numbers. If the elements in the given array are not numbers, they will be coerced to numbers. If *domain* is not specified, returns the scale’s current domain.
+如果指定了 *domain* 则将比例尺的输入域设置为指定的二元数值型数组。如果给定的数组中的元素不是数值类型则将被强制转为数值类型。如果没有指定 *domain* 则返回当前比例尺的输入域。
 
 <a name="quantize_range" href="#quantize_range">#</a> <i>quantize</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-If *range* is specified, sets the scale’s range to the specified array of values. The array may contain any number of discrete values. The elements in the given array need not be numbers; any value or type will work. If *range* is not specified, returns the scale’s current range.
+如果指定了 *range* 则将比例尺的输出域设置为指定的数组。这个数组可以包含任意数量的离散值。跟定的数组元素不一定非要为数值类型，可以是任意类型的。如果没有指定 *range* 则返回当前比例尺的输出域。
 
 <a name="quantize_ticks" href="#quantize_ticks">#</a> <i>quantize</i>.<b>ticks</b>([<i>count</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-Equivalent to [*continuous*.ticks](#continuous_ticks).
+等价于 [*continuous*.ticks](#continuous_ticks).
 
 <a name="quantize_tickFormat" href="#quantize_tickFormat">#</a> <i>quantize</i>.<b>tickFormat</b>([<i>count</i>[, <i>specifier</i>]]) [<>](https://github.com/xswei/d3-scale/blob/master/src/linear.js "Source")
 
-Equivalent to [*continuous*.tickFormat](#continuous_tickFormat).
+等价于 [*continuous*.tickFormat](#continuous_tickFormat).
 
 <a name="quantize_nice" href="#quantize_nice">#</a> <i>quantize</i>.<b>nice</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-Equivalent to [*continuous*.nice](#continuous_nice).
+等价于 [*continuous*.nice](#continuous_nice).
 
 <a name="quantize_copy" href="#quantize_copy">#</a> <i>quantize</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/quantize.js "Source")
 
-Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回当前比例尺的精准拷贝。原比例尺和副本之间不会相互影响。
 
 ### Quantile Scales
 
