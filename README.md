@@ -637,35 +637,35 @@ width.invertExtent(2); // [40, 70]
 
 ### Quantile Scales
 
-Quantile scales map a sampled input domain to a discrete range. The domain is considered continuous and thus the scale will accept any reasonable input value; however, the domain is specified as a discrete set of sample values. The number of values in (the cardinality of) the output range determines the number of quantiles that will be computed from the domain. To compute the quantiles, the domain is sorted, and treated as a [population of discrete values](https://en.wikipedia.org/wiki/Quantile#Quantiles_of_a_population); see d3-array’s [quantile](https://github.com/xswei/d3-array#quantile). See [bl.ocks.org/8ca036b3505121279daf](http://bl.ocks.org/mbostock/8ca036b3505121279daf) for an example.
+分位数比例尺将一个离散的输入域映射到一个离散的输出域。输入域被认为是连续的，因此可以接受任何合理的输入值。但是输入域被指定为一组离散的样本值，输出域中的值的数量决定了分位数的数量。为了计算分位数，输入域中的值会被排序。并且作为 [population of discrete values(离散值总体)](https://en.wikipedia.org/wiki/Quantile#Quantiles_of_a_population). 参考 `d3-array` 的 [quantile](https://github.com/xswei/d3-array#quantile)。参考例子： [bl.ocks.org/8ca036b3505121279daf](http://bl.ocks.org/mbostock/8ca036b3505121279daf)。
 
 <a name="scaleQuantile" href="#scaleQuantile">#</a> d3.<b>scaleQuantile</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-Constructs a new quantile scale with an empty [domain](#quantile_domain) and an empty [range](#quantile_range). The quantile scale is invalid until both a domain and range are specified.
+使用空的 [domain](#quantile_domain) 和空的 [range](#quantile_range) 构造一个分位数比例尺。在指定输入和输出域之前，分位数比例尺是无效的。
 
 <a name="_quantile" href="#_quantile">#</a> <i>quantile</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-Given a *value* in the input [domain](#quantile_domain), returns the corresponding value in the output [range](#quantile_range).
+根据给定的 [domain](#quantile_domain) 中的值 *value* 返回对应的 [range](#quantile_range) 中的值。
 
 <a name="quantile_invertExtent" href="#quantile_invertExtent">#</a> <i>quantile</i>.<b>invertExtent</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-Returns the extent of values in the [domain](#quantile_domain) [<i>x0</i>, <i>x1</i>] for the corresponding *value* in the [range](#quantile_range): the inverse of [*quantile*](#_quantile). This method is useful for interaction, say to determine the value in the domain that corresponds to the pixel location under the mouse.
+根据指定的输出域中的值返回输入域中所有值的范围 `[<i>x0</i>, <i>x1</i>]`: 在交互时候很有用，比如根据鼠标位置计算对应的输入区间。
 
 <a name="quantile_domain" href="#quantile_domain">#</a> <i>quantile</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-If *domain* is specified, sets the domain of the quantile scale to the specified set of discrete numeric values. The array must not be empty, and must contain at least one numeric value; NaN, null and undefined values are ignored and not considered part of the sample population. If the elements in the given array are not numbers, they will be coerced to numbers. A copy of the input array is sorted and stored internally. If *domain* is not specified, returns the scale’s current domain.
+如果指定了 *domain* 则将当前分位数比例尺的输入域设置为指定的离散的数值数组。数组必须不能为空，并且必须包含至少一个数值类型的值。`NaN`, `null` 和 `undefined` 将会被忽略不被作为样本的一部分。如果给定的数组中的元素非数值，则会被强制转为数值类型。比例尺内部会存储输入数组的副本。如果没有指定 *domain* 则会返回比例尺当前的输入域。
 
 <a name="quantile_range" href="#quantile_range">#</a> <i>quantile</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-If *range* is specified, sets the discrete values in the range. The array must not be empty, and may contain any type of value. The number of values in (the cardinality, or length, of) the *range* array determines the number of quantiles that are computed. For example, to compute quartiles, *range* must be an array of four elements such as [0, 1, 2, 3]. If *range* is not specified, returns the current range.
+如果指定了 *range* 则设置比例尺的输出域。数组必须不能为空，并且可以包含任意类型。输出域中的元素数量决定了分位数的数量。例如，要计算四分位数，范围必须是一个包含四个元素的数组, 比如 `[0,1,2,3]` 等。如果没有指定 *range* 则返回比例尺当前的输出域。
 
 <a name="quantile_quantiles" href="#quantile_quantiles">#</a> <i>quantile</i>.<b>quantiles</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-Returns the quantile thresholds. If the [range](#quantile_range) contains *n* discrete values, the returned array will contain *n* - 1 thresholds. Values less than the first threshold are considered in the first quantile; values greater than or equal to the first threshold but less than the second threshold are in the second quantile, and so on. Internally, the thresholds array is used with [bisect](https://github.com/xswei/d3-array#bisect) to find the output quantile associated with the given input value.
+返回分位阈值。如果输出域包含 *n* 个离散的值，则返回的阈值数组会包含 *n* - 1 个元素。输入值小于第一个阈值的值对应第一个分位数，大于第一个但是小于第二个阈值的输入值对应第二个分位数，以此类推。在内部，阈值数组通过 [bisect](https://github.com/xswei/d3-array#bisect) 根据输入值查找对应的分位数值。
 
 <a name="quantile_copy" href="#quantile_copy">#</a> <i>quantile</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/quantile.js "Source")
 
-Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回当前比例尺的精准拷贝。原比例尺和副本之间不会相互影响。
 
 ### Threshold Scales
 
