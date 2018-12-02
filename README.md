@@ -669,15 +669,15 @@ width.invertExtent(2); // [40, 70]
 
 ### Threshold Scales
 
-Threshold scales are similar to [quantize scales](#quantize-scales), except they allow you to map arbitrary subsets of the domain to discrete values in the range. The input domain is still continuous, and divided into slices based on a set of threshold values. See [bl.ocks.org/3306362](http://bl.ocks.org/mbostock/3306362) for an example.
+阈值比例尺与 [quantize scales](#quantize-scales) 类似，只不过它们允许将输入域的任意子集映射到输入域的离散值。输入域依旧是连续的，并且会根据输出域分片。参考 [bl.ocks.org/3306362](http://bl.ocks.org/mbostock/3306362)。
 
 <a name="scaleThreshold" href="#scaleThreshold">#</a> d3.<b>scaleThreshold</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/threshold.js "Source")
 
-Constructs a new threshold scale with the default [domain](#threshold_domain) [0.5] and the default [range](#threshold_range) [0, 1]. Thus, the default threshold scale is equivalent to the [Math.round](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/round) function for numbers; for example threshold(0.49) returns 0, and threshold(0.51) returns 1.
+使用默认的 [domain](#threshold_domain)：[0.5] 以及默认的 [range](#threshold_range)：[0, 1] 构造一个新的阈值比例尺。因此默认的阈值比例尺等价于 [Math.round](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Math/round) 函数。例如 `threshold(0.49)` 返回 `0`, `threshold(0.51)` 返回 `1`.
 
 <a name="_threshold" href="#_threshold">#</a> <i>threshold</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/threshold.js "Source")
 
-Given a *value* in the input [domain](#threshold_domain), returns the corresponding value in the output [range](#threshold_range). For example:
+根据输入域中的值返回对应的输出域中的值。例如：
 
 ```js
 var color = d3.scaleThreshold()
@@ -693,7 +693,7 @@ color(1000); // "green"
 
 <a name="threshold_invertExtent" href="#threshold_invertExtent">#</a> <i>threshold</i>.<b>invertExtent</b>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/threshold.js "Source")
 
-Returns the extent of values in the [domain](#threshold_domain) [<i>x0</i>, <i>x1</i>] for the corresponding *value* in the [range](#threshold_range), representing the inverse mapping from range to domain. This method is useful for interaction, say to determine the value in the domain that corresponds to the pixel location under the mouse. For example:
+返回输出域中的值 *value* 对应的输入范围 `[<i>x0</i>, <i>x1</i>]`, 表示输入和输出之间的反转映射。这个方法在交互时很有用。例如：
 
 ```js
 var color = d3.scaleThreshold()
@@ -707,15 +707,15 @@ color.invertExtent("green"); // [1, undefined]
 
 <a name="threshold_domain" href="#threshold_domain">#</a> <i>threshold</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/threshold.js "Source")
 
-If *domain* is specified, sets the scale’s domain to the specified array of values. The values must be in sorted ascending order, or the behavior of the scale is undefined. The values are typically numbers, but any naturally ordered values (such as strings) will work; a threshold scale can be used to encode any type that is ordered. If the number of values in the scale’s range is N+1, the number of values in the scale’s domain must be N. If there are fewer than N elements in the domain, the additional values in the range are ignored. If there are more than N elements in the domain, the scale may return undefined for some inputs. If *domain* is not specified, returns the scale’s current domain.
+如果指定了 *domain* 则将比例尺的输入范围设置为指定的数组。数组必须是升序排序的。值通常是数值，也可以是能进行排序的其他类型。如果输出域的值个数为 `N` + 1, 则输入域中值的个数必须为 `N`. 如果比 `N` 少则对应的输出域中多余的值会被忽略。如果多于 `N` 则会出现返回 `undefined` 的情况。如果没指定 *domain* 则返回比例尺当前的输入域。
 
 <a name="threshold_range" href="#threshold_range">#</a> <i>threshold</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/threshold.js "Source")
 
-If *range* is specified, sets the scale’s range to the specified array of values. If the number of values in the scale’s domain is N, the number of values in the scale’s range must be N+1. If there are fewer than N+1 elements in the range, the scale may return undefined for some inputs. If there are more than N+1 elements in the range, the additional values are ignored. The elements in the given array need not be numbers; any value or type will work. If *range* is not specified, returns the scale’s current range.
+如果指定了 *range* 则将当前比例尺的输出域设置为指定的数组。如果输入域中的元素个数为 `N` 则输出域中的元素个数必须为 `N` + 1. 如果少于 `N` + 1 个元素，则比例尺对某些值可能会返回 `undefined`。如果多于 `N` + 1 个值，则多余的值会被忽略。输出域中的元素不一定必须为数值类型，如果是其他类型也可以正常工作。如果没有指定 *range* 则返回比例尺当前的输出域。
 
 <a name="threshold_copy" href="#threshold_copy">#</a> <i>threshold</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/threshold.js "Source")
 
-Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回当前比例尺的精准拷贝。原比例尺和副本之间不会相互影响。
 
 ### Ordinal Scales
 
