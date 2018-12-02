@@ -719,63 +719,63 @@ color.invertExtent("green"); // [1, undefined]
 
 ### Ordinal Scales
 
-Unlike [continuous scales](#continuous-scales), ordinal scales have a discrete domain and range. For example, an ordinal scale might map a set of named categories to a set of colors, or determine the horizontal positions of columns in a column chart.
+与 [continuous scales](#continuous-scales) 不同，序数比例尺的输出域和输入域都是离散的。例如序数比例尺可以将一组命名类别映射到一组颜色。或者确定一组条形图在水平方向的位置等等。
 
 <a name="scaleOrdinal" href="#scaleOrdinal">#</a> d3.<b>scaleOrdinal</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-Constructs a new ordinal scale with an empty [domain](#ordinal_domain) and the specified [*range*](#ordinal_range). If a *range* is not specified, it defaults to the empty array; an ordinal scale always returns undefined until a non-empty range is defined.
+使用空的输入域和指定的 [*range*](#ordinal_range) 构造一个序数比例尺。如果没有指定 *range* 则默认为空数组。序数比例尺在定义非空的输入域之前，总是返回 `undefined`。
 
 <a name="_ordinal" href="#_ordinal">#</a> <i>ordinal</i>(<i>value</i>) [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-Given a *value* in the input [domain](#ordinal_domain), returns the corresponding value in the output [range](#ordinal_range). If the given *value* is not in the scale’s [domain](#ordinal_domain), returns the [unknown](#ordinal_value); or, if the unknown value is [implicit](#scaleImplicit) (the default), then the *value* is implicitly added to the domain and the next-available value in the range is assigned to *value*, such that this and subsequent invocations of the scale given the same input *value* return the same output value.
+根据输入域中的值 *value* 返回对应的输入域中的值。如果给定的 *value* 不在输入域中则返回 [unknown](#ordinal_value)；如果 `unknown` 是 [implicit(隐式的)](#scaleImplicit)(默认的)，则 *value* 会被隐式的添加到输入域中。这样的话在后续的调用中会返回对应的默认值。
 
 <a name="ordinal_domain" href="#ordinal_domain">#</a> <i>ordinal</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-If *domain* is specified, sets the domain to the specified array of values. The first element in *domain* will be mapped to the first element in the range, the second domain value to the second range value, and so on. Domain values are stored internally in a map from stringified value to index; the resulting index is then used to retrieve a value from the range. Thus, an ordinal scale’s values must be coercible to a string, and the stringified version of the domain value uniquely identifies the corresponding range value. If *domain* is not specified, this method returns the current domain.
+如果指定了 *domain* 则将输入域设置为指定的数组。输入域中的元素次序与输出域中的元素次序一一对应。输入域在内部以字符串到索引的映射形式存储；索引值用来进行进行输出检索。因此，序数比例尺的值必须为字符串或者能被强制转为字符串的类型，并且必须唯一。
 
-Setting the domain on an ordinal scale is optional if the [unknown value](#ordinal_unknown) is [implicit](#scaleImplicit) (the default). In this case, the domain will be inferred implicitly from usage by assigning each unique value passed to the scale a new value from the range. Note that an explicit domain is recommended to ensure deterministic behavior, as inferring the domain from usage will be dependent on ordering.
+如果 [unknown value](#ordinal_unknown) 是 [implicit](#scaleImplicit)(指定默认值)。则设置输入域是可选的(非强制的)。在这种情况下，输入域会根据传给比例尺的值推测出来。要注意的是最好显式的指定输入域，因为这样的话映射关系能确定。
 
 <a name="ordinal_range" href="#ordinal_range">#</a> <i>ordinal</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-If *range* is specified, sets the range of the ordinal scale to the specified array of values. The first element in the domain will be mapped to the first element in *range*, the second domain value to the second range value, and so on. If there are fewer elements in the range than in the domain, the scale will reuse values from the start of the range. If *range* is not specified, this method returns the current range.
+如果指定了 *range* 则将序数比例尺的输出域设置为指定的数组。输入域中的元素与输出域中的元素一一对应。如果没有指定 *tange* 则返回比例尺当前的输出域。
 
 <a name="ordinal_unknown" href="#ordinal_unknown">#</a> <i>ordinal</i>.<b>unknown</b>([<i>value</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-If *value* is specified, sets the output value of the scale for unknown input values and returns this scale. If *value* is not specified, returns the current unknown value, which defaults to [implicit](#implicit). The implicit value enables implicit domain construction; see [*ordinal*.domain](#ordinal_domain).
+如果指定了 *value* 则将未知输入的输出值设置为指定的值。如果没有指定 *value* 则返回当前的未知值，默认为 [implicit](#implicit). 隐式值会对输入域进行隐式调整，参考 [*ordinal*.domain](#ordinal_domain).
 
 <a name="ordinal_copy" href="#ordinal_copy">#</a> <i>ordinal</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-Returns an exact copy of this ordinal scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回当前比例尺的精准拷贝。原比例尺和副本之间不会相互影响。
 
 <a name="scaleImplicit" href="#scaleImplicit">#</a> d3.<b>scaleImplicit</b> [<>](https://github.com/xswei/d3-scale/blob/master/src/ordinal.js "Source")
 
-A special value for [*ordinal*.unknown](#ordinal_unknown) that enables implicit domain construction: unknown values are implicitly added to the domain.
+序数比例尺 [*ordinal*.unknown](#ordinal_unknown) 的一个特殊的值，支持对输入域的隐式构造：将未知的值到输入域中。
 
 #### Band Scales
 
-Band scales are like [ordinal scales](#ordinal-scales) except the output range is continuous and numeric. Discrete output values are automatically computed by the scale by dividing the continuous range into uniform bands. Band scales are typically used for bar charts with an ordinal or categorical dimension. The [unknown value](#ordinal_unknown) of a band scale is effectively undefined: they do not allow implicit domain construction.
+分段比例尺与 [ordinal scales](#ordinal-scales) 类似，只不过其输出域可以是连续的数值类型。离散的输出值是通过将连续的范围划分为均匀的分段。分段比例尺通常用于包含序数或类别维度的条形图。分段比例尺的 [unknown value](#ordinal_unknown) 是未定义的：它们不允许隐式构造。
 
 <img src="https://raw.githubusercontent.com/d3/d3-scale/master/img/band.png" width="751" height="238" alt="band">
 
 <a name="scaleBand" href="#scaleBand">#</a> d3.<b>scaleBand</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Constructs a new band scale with the empty [domain](#band_domain), the unit [range](#band_range) [0, 1], no [padding](#band_padding), no [rounding](#band_round) and center [alignment](#band_align).
+使用空的 [domain](#band_domain)，单位 [range](#band_range)：[0, 1]，不设置 [padding](#band_padding), 不设置 [rounding](#band_round) 以及 [alignment](#band_align) 构造一个新的分段比例尺。
 
 <a name="_band" href="#_band">#</a> <i>band</i>(*value*) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Given a *value* in the input [domain](#band_domain), returns the start of the corresponding band derived from the output [range](#band_range). If the given *value* is not in the scale’s domain, returns undefined.
+根据输入域中的值 *value* 返回对应的分段的起点值。如果给定的 *value* 不在输入域中，则返回 `undefined`。
 
 <a name="band_domain" href="#band_domain">#</a> <i>band</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *domain* is specified, sets the domain to the specified array of values. The first element in *domain* will be mapped to the first band, the second domain value to the second band, and so on. Domain values are stored internally in a map from stringified value to index; the resulting index is then used to determine the band. Thus, a band scale’s values must be coercible to a string, and the stringified version of the domain value uniquely identifies the corresponding band. If *domain* is not specified, this method returns the current domain.
+如果指定了 *domain* 则将比例尺的输入域设置为指定的数组。第一个元素对应第一个分段，第二个元素对应第二个分段，以此类推。在内部分段比例尺的输入会存储字符串与索引的映射关系，因此输入域中的值必须是字符串或者能被强制转为字符串的值。并且必须唯一。如果没有指定 *domain* 则返回比例尺当前的输入域。
 
 <a name="band_range" href="#band_range">#</a> <i>band</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *range* is specified, sets the scale’s range to the specified two-element array of numbers. If the elements in the given array are not numbers, they will be coerced to numbers. If *range* is not specified, returns the scale’s current range, which defaults to [0, 1].
+如果指定了 *range* 则将比例尺的输出域设置为指定的二元数值数组。如果数组中元素不是数值类型则会被强制转为数值类型。如果没有指定 *range* 则返回比例尺当前的输出范围，默认为 `[0, 1]`。
 
 <a name="band_rangeRound" href="#band_rangeRound">#</a> <i>band</i>.<b>rangeRound</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Sets the scale’s [*range*](#band_range) to the specified two-element array of numbers while also enabling [rounding](#band_round). This is a convenience method equivalent to:
+将比例尺的 [*range*](#band_range) 设置为指定的二元数值数组。并且启用 [rounding](#band_round)，这是如下操作的一个便捷方法：
 
 ```js
 band
@@ -783,65 +783,65 @@ band
     .round(true);
 ```
 
-Rounding is sometimes useful for avoiding antialiasing artifacts, though also consider the [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) “crispEdges” styles.
+取整有时候能避免锯齿，当然也可以使用 [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) 的 “crispEdges” 样式来避免锯齿。
 
 <a name="band_round" href="#band_round">#</a> <i>band</i>.<b>round</b>([<i>round</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *round* is specified, enables or disables rounding accordingly. If rounding is enabled, the start and stop of each band will be integers. Rounding is sometimes useful for avoiding antialiasing artifacts, though also consider the [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) “crispEdges” styles. Note that if the width of the domain is not a multiple of the cardinality of the range, there may be leftover unused space, even without padding! Use [*band*.align](#band_align) to specify how the leftover space is distributed.
+如果指定了 *round* 则表示启用或关闭取整操作。如果开启了取整，则每个分段的起点和终点都是整数。取整有时候能避免锯齿。需要注意的是，如果输入域的宽度不能被输出范围整除，则可能还有剩余的未使用的空间，即使没有填充。可以使用 [*band*.align](#band_align) 来以指定剩余空间的分布方式。
 
 <a name="band_paddingInner" href="#band_paddingInner">#</a> <i>band</i>.<b>paddingInner</b>([<i>padding</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *padding* is specified, sets the inner padding to the specified value which must be in the range [0, 1]. If *padding* is not specified, returns the current inner padding which defaults to 0. The inner padding determines the ratio of the range that is reserved for blank space between bands.
+如果指定了 *padding* 则将分段的内部间隔设置为指定的值，值的范围必须在 `[0, 1]` 之间. 如果没有指定 *padding* 则返回当前的内部间隔，默认为 `0`. 内部间隔决定了两个分段之间的间隔比例。
 
 <a name="band_paddingOuter" href="#band_paddingOuter">#</a> <i>band</i>.<b>paddingOuter</b>([<i>padding</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *padding* is specified, sets the outer padding to the specified value which must be in the range [0, 1]. If *padding* is not specified, returns the current outer padding which defaults to 0. The outer padding determines the ratio of the range that is reserved for blank space before the first band and after the last band.
+如果指定了 *padding* 则将分段的外部间隔设置为指定的值，值的范围必须在 `[0, 1]` 之间. 如果没有指定 *padding* 则返回当前的外部，默认为 `0`. 外部决定了第一个分段之前与最后一个分段之后的间隔比例。
 
 <a name="band_padding" href="#band_padding">#</a> <i>band</i>.<b>padding</b>([<i>padding</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-A convenience method for setting the [inner](#band_paddingInner) and [outer](#band_paddingOuter) padding to the same *padding* value. If *padding* is not specified, returns the inner padding.
+一个同时设置 [inner](#band_paddingInner) 和 [outer](#band_paddingOuter) 的便捷方法。如果没有指定 *padding* 则返回内部间隔。
 
 <a name="band_align" href="#band_align">#</a> <i>band</i>.<b>align</b>([<i>align</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *align* is specified, sets the alignment to the specified value which must be in the range [0, 1]. If *align* is not specified, returns the current alignment which defaults to 0.5. The alignment determines how any leftover unused space in the range is distributed. A value of 0.5 indicates that the leftover space should be equally distributed before the first band and after the last band; *i.e.*, the bands should be centered within the range. A value of 0 or 1 may be used to shift the bands to one side, say to position them adjacent to an axis.
+如果指定了 *align* 则设置分段的对其方式，值处于 `[0, 1]` 之间。如果没有指定 *align* 则返回当前的对其方式，默认为 `0.5`。对其方式决定了输出区间的分布方式。`0,5` 表示第一个分段前和最后一个分段之后的未使用空间一致。使用 `0` 或者 `1` 可以将分段整体向某一侧对齐。
 
 <a name="band_bandwidth" href="#band_bandwidth">#</a> <i>band</i>.<b>bandwidth</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Returns the width of each band.
+返回每一个分段的宽度。
 
 <a name="band_step" href="#band_step">#</a> <i>band</i>.<b>step</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Returns the distance between the starts of adjacent bands.
+返回相邻的两个分段的起点之间的距离。
 
 <a name="band_copy" href="#band_copy">#</a> <i>band</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回当前比例尺的精准拷贝。原比例尺和副本之间不会相互影响。
 
 #### Point Scales
 
-Point scales are a variant of [band scales](#band-scales) with the bandwidth fixed to zero. Point scales are typically used for scatterplots with an ordinal or categorical dimension. The [unknown value](#ordinal_unknown) of a point scale is always undefined: they do not allow implicit domain construction.
+标点比例尺是 [band scales](#band-scales) 的分段宽度为 `0` 时的变体。标点比例尺通常用于对具有序数或分类维度的散点图。[unknown value](#ordinal_unknown) 总是 `undefined`: 它们不能隐式的构造输入域。
 
 <img src="https://raw.githubusercontent.com/d3/d3-scale/master/img/point.png" width="648" height="155" alt="point">
 
 <a name="scalePoint" href="#scalePoint">#</a> d3.<b>scalePoint</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Constructs a new point scale with the empty [domain](#point_domain), the unit [range](#point_range) [0, 1], no [padding](#point_padding), no [rounding](#point_round) and center [alignment](#point_align).
+使用空的 [domain](#point_domain), 单位 [range](#point_range)：[0, 1], 不指定 [padding](#point_padding), [rounding](#point_round) 以及 [alignment](#point_align) 构造一个新的标点比例尺.
 
 <a name="_point" href="#_point">#</a> <i>point</i>(*value*) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Given a *value* in the input [domain](#point_domain), returns the corresponding point derived from the output [range](#point_range). If the given *value* is not in the scale’s domain, returns undefined.
+根据输入域中的值 *value* 返回对应的输出域中的点。如果给定的 *value* 不在输入域中则返回 `undefined`。
 
 <a name="point_domain" href="#point_domain">#</a> <i>point</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *domain* is specified, sets the domain to the specified array of values. The first element in *domain* will be mapped to the first point, the second domain value to the second point, and so on. Domain values are stored internally in a map from stringified value to index; the resulting index is then used to determine the point. Thus, a point scale’s values must be coercible to a string, and the stringified version of the domain value uniquely identifies the corresponding point. If *domain* is not specified, this method returns the current domain.
+如果指定了 *domain* 则将比例尺的输入域设置为指定的数组。第一个元素对应第一个分段，第二个元素对应第二个分段，以此类推。在内部分段比例尺的输入会存储字符串与索引的映射关系，因此输入域中的值必须是字符串或者能被强制转为字符串的值。并且必须唯一。如果没有指定 *domain* 则返回比例尺当前的输入域。
 
 <a name="point_range" href="#point_range">#</a> <i>point</i>.<b>range</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *range* is specified, sets the scale’s range to the specified two-element array of numbers. If the elements in the given array are not numbers, they will be coerced to numbers. If *range* is not specified, returns the scale’s current range, which defaults to [0, 1].
+如果指定了 *range* 则将比例尺的输出域设置为指定的二元数值数组。如果数组中元素不是数值类型则会被强制转为数值类型。如果没有指定 *range* 则返回比例尺当前的输出范围，默认为 `[0, 1]`。
 
 <a name="point_rangeRound" href="#point_rangeRound">#</a> <i>point</i>.<b>rangeRound</b>([<i>range</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Sets the scale’s [*range*](#point_range) to the specified two-element array of numbers while also enabling [rounding](#point_round). This is a convenience method equivalent to:
+将比例尺的 [*range*](#band_range) 设置为指定的二元数值数组。并且启用 [rounding](#band_round)，这是如下操作的一个便捷方法：
 
 ```js
 point
@@ -849,28 +849,28 @@ point
     .round(true);
 ```
 
-Rounding is sometimes useful for avoiding antialiasing artifacts, though also consider the [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) “crispEdges” styles.
+取整有时候能避免锯齿，当然也可以使用 [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) 的 “crispEdges” 样式来避免锯齿。
 
 <a name="point_round" href="#point_round">#</a> <i>point</i>.<b>round</b>([<i>round</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *round* is specified, enables or disables rounding accordingly. If rounding is enabled, the position of each point will be integers. Rounding is sometimes useful for avoiding antialiasing artifacts, though also consider the [shape-rendering](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/shape-rendering) “crispEdges” styles. Note that if the width of the domain is not a multiple of the cardinality of the range, there may be leftover unused space, even without padding! Use [*point*.align](#point_align) to specify how the leftover space is distributed.
+如果指定了 *round* 则表示启用或关闭取整操作。如果开启了取整，则每个分段的起点和终点都是整数。取整有时候能避免锯齿。需要注意的是，如果输入域的宽度不能被输出范围整除，则可能还有剩余的未使用的空间，即使没有填充。可以使用 [*band*.align](#band_align) 来以指定剩余空间的分布方式。
 
 <a name="point_padding" href="#point_padding">#</a> <i>point</i>.<b>padding</b>([<i>padding</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *padding* is specified, sets the outer padding to the specified value which must be in the range [0, 1]. If *padding* is not specified, returns the current outer padding which defaults to 0. The outer padding determines the ratio of the range that is reserved for blank space before the first point and after the last point. Equivalent to [*band*.paddingOuter](#band_paddingOuter).
+如果指定了 *padding* 则将分段的内部间隔设置为指定的值，值的范围必须在 `[0, 1]` 之间. 如果没有指定 *padding* 则返回当前的内部间隔，默认为 `0`. 内部间隔决定了两个分段之间的间隔比例。
 
 <a name="point_align" href="#point_align">#</a> <i>point</i>.<b>align</b>([<i>align</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-If *align* is specified, sets the alignment to the specified value which must be in the range [0, 1]. If *align* is not specified, returns the current alignment which defaults to 0.5. The alignment determines how any leftover unused space in the range is distributed. A value of 0.5 indicates that the leftover space should be equally distributed before the first point and after the last point; *i.e.*, the points should be centered within the range. A value of 0 or 1 may be used to shift the points to one side, say to position them adjacent to an axis.
+如果指定了 *align* 则设置分段的对其方式，值处于 `[0, 1]` 之间。如果没有指定 *align* 则返回当前的对其方式，默认为 `0.5`。对其方式决定了输出区间的分布方式。`0,5` 表示第一个分段前和最后一个分段之后的未使用空间一致。使用 `0` 或者 `1` 可以将分段整体向某一侧对齐。
 
 <a name="point_bandwidth" href="#point_bandwidth">#</a> <i>point</i>.<b>bandwidth</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Returns zero.
+返回 `0`
 
 <a name="point_step" href="#point_step">#</a> <i>point</i>.<b>step</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Returns the distance between the starts of adjacent points.
+返回相邻的两个标点之间的距离.
 
 <a name="point_copy" href="#point_copy">#</a> <i>point</i>.<b>copy</b>() [<>](https://github.com/xswei/d3-scale/blob/master/src/band.js "Source")
 
-Returns an exact copy of this scale. Changes to this scale will not affect the returned scale, and vice versa.
+返回当前比例尺的精准拷贝。原比例尺和副本之间不会相互影响。
