@@ -520,7 +520,7 @@ var rainbow = d3.scaleSequential(d3.interpolateRainbow);
 
 <a name="sequential_domain" href="#sequential_domain">#</a> <i>sequential</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
-参考 [*continuous*.domain](#continuous_domain). Note that a sequential scale’s domain must be numeric and must contain exactly two values.
+参考 [*continuous*.domain](#continuous_domain). 注意序列比例尺的输入必须是数值, 并且只包含两个值.
 
 <a name="sequential_clamp" href="#sequential_clamp">#</a> <i>sequential</i>.<b>clamp</b>([<i>clamp</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/sequential.js "Source")
 
@@ -552,7 +552,7 @@ var spectral = d3.scaleDiverging(d3.interpolateSpectral);
 
 <a name="diverging_domain" href="#diverging_domain">#</a> <i>diverging</i>.<b>domain</b>([<i>domain</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
-参考 [*continuous*.domain](#continuous_domain). Note that a diverging scale’s domain must be numeric and must contain exactly three values. The default domain is [0, 0.5, 1].
+参考 [*continuous*.domain](#continuous_domain). 发散比例尺的输入必须是数值并且包含三个元素，默认的输入域是 `[0, 0.5, 1]`.
 
 <a name="diverging_clamp" href="#diverging_clamp">#</a> <i>diverging</i>.<b>clamp</b>([<i>clamp</i>]) [<>](https://github.com/xswei/d3-scale/blob/master/src/diverging.js "Source")
 
